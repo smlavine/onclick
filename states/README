@@ -1,0 +1,16 @@
+A state machine that matches the ANSI terminal escape sequence that signals
+a "mouse up" input. Matches the regex
+
+	"\x1B\\[<0;[0-9]+;[0-9]+M".
+
+Using the standard regex engine would be difficult for this situation
+because input must be unbuffered, and the standard engine does not allow
+for "partial matches".
+
+Consider the following pseudo-example:
+
+        for (let machine = &start; have_input() && machine != &end) {
+        	machine = machine(input());
+        	// ...
+        };
+
