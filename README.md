@@ -4,7 +4,7 @@
 usage: onclick command args...
 ```
 
-Every time the terminal is clicked, the command runs.
+Every time the terminal is clicked, or enter is pressed, the command runs.
 
 ## Installation
 

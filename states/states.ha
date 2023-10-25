@@ -9,11 +9,13 @@ use ascii::{isdigit};
 // Given an input rune, transitions to another state (or itself).
 export type state = fn(r: rune) *state;
 
-// The initial state of the machine (state 1). Matches '\x1B' (ESC).
+// The initial state of the machine (state 1). Matches '\x1B' (ESC) or Enter.
 export fn start(r: rune) *state = {
 	switch (r) {
 	case '\x1B' =>
 		return &bracket;
+	case '\n' =>
+		return &end;
 	case =>
 		return &start;
 	};
