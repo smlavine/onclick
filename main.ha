@@ -40,8 +40,7 @@ fn prepare() void = {
 	// Cleanup the terminal before suspend (^Z).
 	// Located here because this will be called after the TSTP handler
 	// is reset.
-	signal::handle(signal::sig::TSTP, &_cleanup,
-		signal::flag::RESETHAND);
+	signal::handle(signal::sig::TSTP, &_cleanup, signal::flag::RESETHAND);
 };
 
 fn _prepare(s: signal::sig, i: *signal::siginfo, u: *opaque) void = {
