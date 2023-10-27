@@ -36,13 +36,7 @@ fn prepare() void = {
 	// Enable mouse tracking (ANSI escape sequence).
 	fmt::fprint(tty, "\x1B[?1000;1006;1015h")!;
 	tty::noecho(&termios)!;
-
-	// Set noncanonical mode.
-	// XXX: https://lists.sr.ht/~sircmpwn/hare-dev/patches/45902
-	//tty::noncanonical(&termios)!;
-	termios.current.c_lflag &= ~tcflag::ICANON;
-	tty::termios_set(&termios)!;
-
+	tty::noncanonical(&termios)!;
 	// Cleanup the terminal before suspend (^Z).
 	// Located here because this will be called after the TSTP handler
 	// is reset.
