@@ -11,7 +11,6 @@ use fmt;
 use io;
 use os::exec;
 use os;
-use rt::{tcflag};
 use strings;
 use unix::signal;
 use unix::tty;
