@@ -84,8 +84,8 @@ fn wait_then_run_command(in: io::handle, cmdargs: []str, cmdstr: str) void = {
 			// A constituent type of io::error.
 			// The read was probably interrupted by a quit or
 			// suspend signal. If that's the case, continue the
-			// loop. If it was a quit, then `loop` will be set
-			// and the loop will terminate.
+			// loop. If it was a quit, then `loop` has been set
+			// and we will return on the next `for` iteration.
 			continue;
 		case let e: io::error =>
 			fmt::fprintln(os::stderr, "onclick input error:",
