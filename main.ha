@@ -73,7 +73,9 @@ fn wait_then_run_command(in: io::handle, cmdargs: []str, cmdstr: str) void = {
 		// by the termination signals. We can't have this check in
 		// the `for` condition, because then it would go to the part
 		// after the loop where we run the command.
-		if (!loop) return;
+		if (!loop) {
+			return;
+		};
 		match (bufio::read_rune(in)) {
 		case let r: rune =>
 			sm = sm(r);
