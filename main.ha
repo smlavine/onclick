@@ -47,10 +47,10 @@ fn _prepare(s: signal::sig, i: *signal::siginfo, u: *opaque) void = {
 };
 
 fn cleanup() void = {
-	// Disable mouse tracking when the program exits.
-	defer fmt::fprint(tty, "\x1B[?1000;1006;1015l")!;
 	// Restore settings set in prepare().
 	tty::termios_restore(&termios);
+	// Disable mouse tracking when the program exits.
+	fmt::fprint(tty, "\x1B[?1000;1006;1015l")!;
 };
 
 fn _cleanup(s: signal::sig, i: *signal::siginfo, u: *opaque) void = {
