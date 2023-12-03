@@ -93,7 +93,7 @@ fn wait_then_run_command(in: io::handle, cmdargs: []str, cmdstr: str) void = {
 			loop = false;
 			return;
 		case utf8::invalid =>
-			abort("invalid input: utf8 invalid");
+			abort("invalid input: expected utf8");
 		};
 	};
 
