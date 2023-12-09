@@ -1,7 +1,7 @@
-# onclick
+# [onclick](https://sr.ht/~smlavine/onclick)
 
 ```
-usage: onclick command args...
+Usage: ./onclick [-hC] command [arguments...]
 ```
 
 Every time the terminal is clicked, or enter is pressed, the command runs.
