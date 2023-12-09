@@ -8,6 +8,7 @@ use bufio;
 use encoding::utf8;
 use errors;
 use fmt;
+use getopt;
 use io;
 use os::exec;
 use os;
@@ -19,6 +20,9 @@ use states;
 
 // Sentinel that signals whether or not the program loop should end.
 let loop: bool = true;
+
+// Whether or not to clear the screen before each command invocation.
+let clear: bool = false;
 
 // Global tty file value. Set global to make visible to signal handlers.
 // The set value is temporary and will be initialized to /dev/tty.
@@ -51,6 +55,9 @@ fn cleanup() void = {
 	tty::termios_restore(&termios);
 	// Disable mouse tracking when the program exits.
 	fmt::fprint(tty, "\x1B[?1000;1006;1015l")!;
+	if (clear) {
+		fmt::fprint(tty, "\x1Bc")!;
+	};
 };
 
 fn _cleanup(s: signal::sig, i: *signal::siginfo, u: *opaque) void = {
@@ -123,12 +130,28 @@ fn wait_then_run_command(in: io::handle, cmdargs: []str, cmdstr: str) void = {
 };
 
 export fn main() void = {
-	if (len(os::args) < 2) {
-		fmt::fprintln(os::stderr, "usage: onclick command args...")!;
+	const cli = getopt::parse(os::args,
+		"Runs a command every time the terminal is clicked",
+		('C', "clear the screen before each command"),
+		"command [arguments...]",
+	);
+	defer getopt::finish(&cli);
+
+	for (let i = 0z; i < len(cli.opts); i += 1) {
+		switch (cli.opts[i].0) {
+		case 'C' =>
+			clear = true;
+		case =>
+			abort("unreachable");
+		};
+	};
+
+	if (len(cli.args) == 0) {
+		getopt::printusage(os::stderr, os::args[0], cli.help)!;
 		os::exit(os::status::FAILURE);
 	};
-	let cmdargs = os::args[1..];
-	let cmdstr = strings::join(" ", cmdargs...);
+
+	let cmdstr = strings::join(" ", cli.args...);
 	defer free(cmdstr);
 
 	tty = match (tty::open()) {
@@ -157,7 +180,7 @@ export fn main() void = {
 	prepare();
 
 	for (loop) {
-		wait_then_run_command(tty, cmdargs, cmdstr);
+		wait_then_run_command(tty, cli.args, cmdstr);
 	};
 
 	cleanup();
