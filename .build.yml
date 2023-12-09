@@ -1,0 +1,9 @@
+image: alpine/edge
+packages:
+  - hare
+sources:
+  - https://git.sr.ht/~smlavine/onclick
+tasks:
+  - build: |
+      cd onclick
+      make
