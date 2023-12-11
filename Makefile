@@ -1,7 +1,5 @@
 .POSIX:
 
-include config.mk
-
 NAME = onclick
 
 SRC = main.ha states/states.ha
@@ -9,10 +7,10 @@ SRC = main.ha states/states.ha
 all: $(NAME)
 
 $(NAME): $(SRC)
-	$(HARE) build $(HAREFLAGS) -o $(NAME)
+	hare build $(HAREFLAGS) -o $(NAME)
 
 check:
-	$(HARE) test
+	hare test
 
 clean:
 	rm -f $(NAME)
