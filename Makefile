@@ -16,6 +16,7 @@ clean:
 	rm -f $(NAME)
 
 install: $(NAME)
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	install -m755 $(NAME) $(DESTDIR)$(PREFIX)/bin
 
 uninstall:
