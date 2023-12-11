@@ -11,13 +11,15 @@ Usage: onclick [-hC] command [arguments...]
 
 ## Installation
 
-Depends on [hare](https://harelang.org).
+[onclick is available for installation via the AUR][aur]. But otherwise:
 
-To build, run `make`.
-
-To install, run `make install`.
-
-To uninstall, run `make uninstall`.
+- Depends on [hare](https://harelang.org).
+ 
+- To build, run `make`.
+ 
+- To install, run `make install`.
+ 
+- To uninstall, run `make uninstall`.
 
 ## Copyright etc.
 
