@@ -13,6 +13,8 @@ Usage: onclick [-hC] command [arguments...]
 
 [onclick is available for installation via the AUR][aur]. But otherwise:
 
+[aur]: https://aur.archlinux.org/packages/onclick
+
 - Depends on [hare](https://harelang.org).
  
 - To build, run `make`.
