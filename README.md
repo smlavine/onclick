@@ -11,6 +11,8 @@ Usage: onclick [-hC] command [arguments...]
 
 ## Installation
 
+Depends on [hare](https://harelang.org).
+
 To build, run `make`.
 
 To install, run `make install`.
